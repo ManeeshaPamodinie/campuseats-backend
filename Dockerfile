@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o /app
 # 3. Final runtime image setup
 FROM ://microsoft.com
 WORKDIR /app
-COPY --from-build /app .
+COPY --from=build /app .
 ENV ASPNETCORE_URLS=http://0.0.0
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "CampusEats.Api.dll"]
