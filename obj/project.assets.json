@@ -452,11 +452,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Acer\\CampusEats.Api\\CampusEats.Api.csproj",
+      "projectUniqueName": "C:\\Users\\Acer\\OneDrive\\Documents\\3rd year 1st sem\\SE Frameworks\\CampusEats.Api\\CampusEats.Api.csproj",
       "projectName": "CampusEats.Api",
-      "projectPath": "C:\\Users\\Acer\\CampusEats.Api\\CampusEats.Api.csproj",
+      "projectPath": "C:\\Users\\Acer\\OneDrive\\Documents\\3rd year 1st sem\\SE Frameworks\\CampusEats.Api\\CampusEats.Api.csproj",
       "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Acer\\CampusEats.Api\\obj\\",
+      "outputPath": "C:\\Users\\Acer\\OneDrive\\Documents\\3rd year 1st sem\\SE Frameworks\\CampusEats.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config"

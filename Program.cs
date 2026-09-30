@@ -10,9 +10,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMenuService, MenuService>();
+builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
+    p.WithOrigins(" https://campuseats-frontend-six.vercel.app") // <-- Replace with your real live Vercel URL
+     .AllowAnyHeader()
+     .AllowAnyMethod()));
 
 
 var app = builder.Build();
+app.UseCors("Frontend");
+
 
 
 // Configure the HTTP request pipeline.
