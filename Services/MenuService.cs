@@ -1,3 +1,4 @@
+using CampusEats.Api.Data;
 using CampusEats.Api.Dtos;
 using CampusEats.Api.Models;
 
@@ -5,29 +6,18 @@ namespace CampusEats.Api.Services;
 
 public class MenuService : IMenuService
 {
-    private readonly List<MenuItem> _items;
-    private int _nextId;
-
-    public MenuService() // seed in-memory data
-    {
-        _items = new()
-        {
-            new() { Id = 1, Name = "Kottu Roti", Price = 750m, Category = "Mains" },
-            new() { Id = 2, Name = "Fried Rice", Price = 850m, Category = "Mains" },
-            new() { Id = 3, Name = "Watalappan", Price = 350m, Category = "Dessert" },
-        };
-        _nextId = 4;
-    }
+    private readonly AppDbContext _db;
+    public MenuService(AppDbContext db) => _db = db;
 
     private static MenuItemDto ToDto(MenuItem m) =>
         new(m.Id, m.Name, m.Price, m.Category, m.Available);
 
     public IEnumerable<MenuItemDto> GetAll() =>
-        _items.Select(ToDto);
+        _db.MenuItems.OrderBy(m => m.Id).ToList().Select(ToDto);
 
     public MenuItemDto? GetById(int id)
     {
-        var m = _items.FirstOrDefault(x => x.Id == id);
+        var m = _db.MenuItems.Find(id);
         return m is null ? null : ToDto(m);
     }
 
@@ -35,33 +25,33 @@ public class MenuService : IMenuService
     {
         var item = new MenuItem
         {
-            Id = _nextId++,
             Name = dto.Name,
             Price = dto.Price,
             Category = dto.Category,
             Available = true
         };
-        _items.Add(item);
+        _db.MenuItems.Add(item);
+        _db.SaveChanges();
         return ToDto(item);
     }
 
     public bool Update(int id, CreateMenuItemDto dto)
     {
-        var m = _items.FirstOrDefault(x => x.Id == id);
-        if (m is null) return false; // guard clause
-
-        m.Name = dto.Name; // replaces the editable fields
+        var m = _db.MenuItems.Find(id);
+        if (m is null) return false;
+        m.Name = dto.Name;
         m.Price = dto.Price;
         m.Category = dto.Category;
+        _db.SaveChanges();
         return true;
     }
 
     public bool Delete(int id)
     {
-        var m = _items.FirstOrDefault(x => x.Id == id);
+        var m = _db.MenuItems.Find(id);
         if (m is null) return false;
-
-        _items.Remove(m);
+        _db.MenuItems.Remove(m);
+        _db.SaveChanges();
         return true;
     }
 }
